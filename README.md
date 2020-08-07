@@ -3,14 +3,14 @@
 <img src="https://cdn.jsdelivr.net/gh/hackclub/meta@fc4c0d220426eb53a176e656ae7700d9dcd0b2c5/logos/hack_club_red_text.svg" width="450">
 </p>
 
-Telegram bot for Hack CLub NMIT. Made using Javascript.
+Telegram bot for Hack Club NMIT. Made using Javascript.
 
 ## To run:
 
 -   Clone the repo and cd into the directory.
 
 ```
-git clone https://github.com/k4u5h4L/hack-club-tele-bot.git && cd hack-club-tele-bot
+git clone https://github.com/HackClub-NMIT/telegram-bot.git && cd telegram-bot
 ```
 
 -   Install the dependencies
