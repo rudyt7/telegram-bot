@@ -130,6 +130,13 @@ bot.on("message", (msg) => {
                 }, timeOut);
             })
             .catch((err) => console.log(err));
+    } else {
+        bot.sendMessage(chatId, `Hey there, I am a bot.\nEnter "/help" to see what I can do.`).catch(
+            (error) => {
+                console.log(error.code); // => 'ETELEGRAM'
+                console.log(error.response.body); // => { ok: false, error_code: 400, description: 'Bad Request: chat not found' }
+            }
+        );
     }
 });
 
