@@ -26,3 +26,7 @@ npm install
 ```
 npm start
 ```
+
+## Docs:
+
+-   If you want to contribute to this bot, here's the documentsion of the telegram bot api wrapper: [github.com/yagop/node-telegram-bot-api](https://github.com/yagop/node-telegram-bot-api)

@@ -2,6 +2,7 @@ process.env["NTBA_FIX_319"] = 1; // to avoid a deprecation warning
 
 require("dotenv").config();
 
+// replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.BOT_TOKEN;
 
 const TelegramBot = require("node-telegram-bot-api");
@@ -10,9 +11,9 @@ const helpMessage = require("./help");
 
 const links = require("./links");
 
-// console.log(helpMessage);
+const timeOut = 120000;
 
-// replace the value below with the Telegram token you receive from @BotFather
+// console.log(helpMessage);
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
@@ -38,17 +39,34 @@ bot.on("new_chat_members", (msg) => {
     console.log(msg);
     const chatId = msg.chat.id;
 
-    if (!msg.new_chat_member.is_bot) {
-        bot.sendMessage(msg.new_chat_member.id, links).catch((error) => {
+    const message = bot
+        .sendMessage(
+            chatId,
+            `Hey @${msg.new_chat_member.username}, here are some of Hack Club's links,\n ${links}`
+        )
+        .catch((error) => {
             console.log(error.code); // => 'ETELEGRAM'
             console.log(error.response.body); // => { ok: false, error_code: 400, description: 'Bad Request: chat not found' }
         });
-    }
 
-    bot.sendMessage(chatId, `Hey @${msg.new_chat_member.username}, welcome!`).catch((error) => {
-        console.log(error.code); // => 'ETELEGRAM'
-        console.log(error.response.body); // => { ok: false, error_code: 400, description: 'Bad Request: chat not found' }
-    });
+    // let messageID;
+
+    message
+        .then((res) => {
+            // console.log(`The message sent by bot: \n\n`);
+            // console.log(res);
+
+            setTimeout(() => {
+                bot.deleteMessage(chatId, res.message_id).catch((error) => {
+                    console.log(error.code); // => 'ETELEGRAM'
+                    console.log(error.response.body); // => { ok: false, error_code: 400, description: 'Bad Request: chat not found' }
+                });
+            }, timeOut);
+        })
+        .catch((err) => console.log(err));
+
+    // console.log(`messageID = ${messageID}`);
+    // setTimeout(() => { bot.deleteMessage(chatId, ) }, 5000);
 });
 
 bot.on("left_chat_member", (msg) => {
@@ -70,19 +88,48 @@ bot.on("message", (msg) => {
     console.log(msg);
 
     const regExhelp = /^((h|H)(elp|ELP))/;
+    const regExLinks = /^((l|L)(inks|INKS))/;
 
     if (regExhelp.test(userQuestion)) {
         console.log(`User ${msg.from.username}: ${userQuestion}`);
 
-        bot.sendMessage(chatId, helpMessage).catch((error) => {
+        const helpMessage1 = bot.sendMessage(chatId, helpMessage).catch((error) => {
             console.log(error.code); // => 'ETELEGRAM'
             console.log(error.response.body); // => { ok: false, error_code: 400, description: 'Bad Request: chat not found' }
         });
-    } else {
-        bot.sendMessage(chatId, links).catch((error) => {
+
+        helpMessage1
+            .then((res) => {
+                // console.log(`The message sent by bot: \n\n`);
+                // console.log(res);
+
+                setTimeout(() => {
+                    bot.deleteMessage(chatId, res.message_id).catch((error) => {
+                        console.log(error.code); // => 'ETELEGRAM'
+                        console.log(error.response.body); // => { ok: false, error_code: 400, description: 'Bad Request: chat not found' }
+                    });
+                }, timeOut);
+            })
+            .catch((err) => console.log(err));
+    } else if (regExLinks.test(userQuestion)) {
+        const linkMessage = bot.sendMessage(chatId, links).catch((error) => {
             console.log(error.code); // => 'ETELEGRAM'
             console.log(error.response.body); // => { ok: false, error_code: 400, description: 'Bad Request: chat not found' }
         });
+
+        linkMessage
+            .then((res) => {
+                // console.log(`The message sent by bot: \n\n`);
+                // console.log(res);
+
+                setTimeout(() => {
+                    bot.deleteMessage(chatId, res.message_id).catch((error) => {
+                        console.log(error.code); // => 'ETELEGRAM'
+                        console.log(error.response.body); // => { ok: false, error_code: 400, description: 'Bad Request: chat not found' }
+                    });
+                }, timeOut);
+            })
+            .catch((err) => console.log(err));
     }
 });
 
