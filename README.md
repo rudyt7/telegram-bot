@@ -7,21 +7,21 @@ Telegram bot for Hack Club NMIT. Made using Javascript.
 
 ## To run:
 
--   Clone the repo and cd into the directory.
+- Clone the repo and cd into the directory.
 
 ```
 git clone https://github.com/HackClub-NMIT/telegram-bot.git && cd telegram-bot
 ```
 
--   Install the dependencies
+- Install the dependencies
 
 ```
 npm install
 ```
 
--   Rename the `.env_sample` to `.env` and fill in the required keys and tokens
+- Rename the `.env_sample` to `.env` and fill in the required keys and tokens
 
--   Start the bot
+- Start the bot
 
 ```
 npm start
@@ -29,4 +29,4 @@ npm start
 
 ## Docs:
 
--   If you want to contribute to this bot, here's the documentsion of the telegram bot api wrapper: [github.com/yagop/node-telegram-bot-api](https://github.com/yagop/node-telegram-bot-api)
+- If you want to contribute to this bot, here's the documentation of the telegram bot api wrapper: [github.com/yagop/node-telegram-bot-api](https://github.com/yagop/node-telegram-bot-api)
