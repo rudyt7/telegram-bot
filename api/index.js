@@ -165,8 +165,4 @@ module.exports = () => {
   });
 
   console.log(`Bot is ready!`);
-
-  app.get('/', (req, res) => {
-    res.send('bot deployed');
-  });
 };
