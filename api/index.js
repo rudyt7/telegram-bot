@@ -1,16 +1,16 @@
-exports = () => {
-  process.env["NTBA_FIX_319"] = 1; // to avoid a deprecation warning
+module.exports = () => {
+  process.env['NTBA_FIX_319'] = 1; // to avoid a deprecation warning
 
-  require("dotenv").config();
+  require('dotenv').config();
 
   // replace the value below with the Telegram token you receive from @BotFather
   const token = process.env.BOT_TOKEN;
 
-  const TelegramBot = require("node-telegram-bot-api");
+  const TelegramBot = require('node-telegram-bot-api');
 
-  const helpMessage = require("./help");
+  const helpMessage = require('./help');
 
-  const links = require("./links");
+  const links = require('./links');
 
   const timeOut = 120000;
 
@@ -35,7 +35,7 @@ exports = () => {
     });
   });
 
-  bot.on("new_chat_members", (msg) => {
+  bot.on('new_chat_members', (msg) => {
     console.log(`user joined`);
     console.log(msg);
     const chatId = msg.chat.id;
@@ -70,21 +70,21 @@ exports = () => {
     // setTimeout(() => { bot.deleteMessage(chatId, ) }, 5000);
   });
 
-  bot.on("left_chat_member", (msg) => {
+  bot.on('left_chat_member', (msg) => {
     console.log(`member left`);
     console.log(msg.left_chat_member);
   });
 
   // Listen for any kind of message. There are different kinds of
   // messages.
-  bot.on("message", (msg) => {
+  bot.on('message', (msg) => {
     if (msg.text == null || msg.text == undefined) {
       // console.log(`message text not defined`);
       return;
     }
 
     const chatId = msg.chat.id;
-    const userQuestion = msg.text.replace(/\//, "");
+    const userQuestion = msg.text.replace(/\//, '');
 
     console.log(msg);
 
@@ -160,13 +160,13 @@ exports = () => {
     }
   });
 
-  bot.on("polling_error", (error) => {
+  bot.on('polling_error', (error) => {
     console.log(error); // => 'EFATAL'
   });
 
   console.log(`Bot is ready!`);
 
-  app.get("/", (req, res) => {
-    res.send("bot deployed");
+  app.get('/', (req, res) => {
+    res.send('bot deployed');
   });
 };
